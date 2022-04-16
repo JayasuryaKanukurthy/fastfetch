@@ -19,6 +19,37 @@ typedef struct FFlogo
 #define FF_LOGO_COLORS(...) static const char* colors[] = (const char*[]) { __VA_ARGS__, NULL }; logo.builtinColors = colors;
 #define FF_LOGO_RETURN return &logo;
 
+static const FFlogo* getLogoRHEL()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("redhat")
+    FF_LOGO_LINES(
+        "           .MMM..:MMMMMMM\n" 
+        "          MMMMMMMMMMMMMMMMMM\n" 
+        "          MMMMMMMMMMMMMMMMMMMM.\n" 
+        "         MMMMMMMMMMMMMMMMMMMMMM\n" 
+        "        ,MMMMMMMMMMMMMMMMMMMMMM:\n" 
+        "        MMMMMMMMMMMMMMMMMMMMMMMM\n" 
+        "  .MMMM'  MMMMMMMMMMMMMMMMMMMMMM\n" 
+        " MMMMMM    `MMMMMMMMMMMMMMMMMMMM.\n" 
+        "MMMMMMMM      MMMMMMMMMMMMMMMMMM .\n" 
+        "MMMMMMMMM.       `MMMMMMMMMMMMM' MM.\n" 
+        "MMMMMMMMMMM.                     MMMM\n" 
+        "`MMMMMMMMMMMMM.                 ,MMMMM.\n" 
+        " `MMMMMMMMMMMMMMMMM.          ,MMMMMMMM.\n" 
+        "    MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" 
+        "      MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:\n" 
+        "         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" 
+        "            `MMMMMMMMMMMMMMMMMMMMMMMM:\n" 
+        "                ``MMMMMMMMMMMMMMMMM'"
+    )
+    FF_LOGO_COLORS(
+        "31" //red
+    )
+    FF_LOGO_RETURN
+}
+
+
 static const FFlogo* getLogoUnknown()
 {
     FF_LOGO_INIT
@@ -1168,6 +1199,8 @@ static GetLogoMethod* getLogos()
         getLogoOpenSuseTumbleweed,
         getLogoPop,
         getLogoPopSmall,
+        getLogoReborn,
+	getLogoRHEL,
         getLogoReborn,
         getLogoRebornSmall,
         getLogoUbuntu,
