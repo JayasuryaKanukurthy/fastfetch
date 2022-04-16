@@ -19,10 +19,10 @@ typedef struct FFlogo
 #define FF_LOGO_COLORS(...) static const char* colors[] = (const char*[]) { __VA_ARGS__, NULL }; logo.builtinColors = colors;
 #define FF_LOGO_RETURN return &logo;
 
-static const FFlogo* getLogoRHEL()
+static const FFlogo* getLogoRedHatEnterpriseLinux()
 {
     FF_LOGO_INIT
-    FF_LOGO_NAMES("redhat")
+    FF_LOGO_NAMES("rhel")
     FF_LOGO_LINES(
         "           .MMM..:MMMMMMM\n" 
         "          MMMMMMMMMMMMMMMMMM\n" 
@@ -1200,7 +1200,7 @@ static GetLogoMethod* getLogos()
         getLogoPop,
         getLogoPopSmall,
         getLogoReborn,
-	getLogoRHEL,
+	getLogoRedHatEnterpriseLinux,
         getLogoReborn,
         getLogoRebornSmall,
         getLogoUbuntu,
