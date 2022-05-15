@@ -19,7 +19,7 @@ typedef struct FFlogo
 #define FF_LOGO_COLORS(...) static const char* colors[] = (const char*[]) { __VA_ARGS__, NULL }; logo.builtinColors = colors;
 #define FF_LOGO_RETURN return &logo;
 
-static const FFlogo* getLogoRedHatEnterpriseLinux()
+static const FFlogo* getrhel()
 {
     FF_LOGO_INIT
     FF_LOGO_NAMES("rhel")
