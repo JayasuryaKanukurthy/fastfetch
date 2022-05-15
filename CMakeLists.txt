@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0) # Threads::Threads
 
 project(fastfetch
-    VERSION 1.2.3
+    VERSION 1.3.4
     LANGUAGES C
 )
 
@@ -31,6 +31,7 @@ OPTION(ENABLE_RPM "Enable rpm" ON)
 OPTION(ENABLE_IMAGEMAGICK7 "Enable imagemagick 7" ON)
 OPTION(ENABLE_IMAGEMAGICK6 "Enable imagemagick 6" ON)
 OPTION(ENABLE_ZLIB "Enable zlib" ON)
+OPTION(ENABLE_CHAFA "Enable chafa" ON)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -321,6 +322,15 @@ if(ENABLE_ZLIB)
     endif()
 endif()
 
+if(ENABLE_CHAFA)
+    pkg_check_modules(CHAFA chafa>=1.10)
+    if(CHAFA_FOUND)
+        target_compile_definitions(libfastfetch PRIVATE FF_HAVE_CHAFA=1)
+    else()
+        message(WARNING "Package chafa>=1.10 not found. Building without support.")
+    endif()
+endif()
+
 target_include_directories(libfastfetch
     PUBLIC ${PROJECT_BINARY_DIR}
     PUBLIC ${PROJECT_SOURCE_DIR}/src
@@ -340,6 +350,7 @@ target_include_directories(libfastfetch
     PRIVATE ${IMAGEMAGICK7_INCLUDE_DIRS}
     PRIVATE ${IMAGEMAGICK6_INCLUDE_DIRS}
     PRIVATE ${ZLIB_INCLUDE_DIRS}
+    PRIVATE ${CHAFA_INCLUDE_DIRS}
 )
 
 target_link_libraries(libfastfetch
@@ -420,29 +431,29 @@ set(CPACK_GENERATOR "DEB;RPM;TGZ;ZIP")
 
 set(CPACK_PACKAGE_CONTACT "Linus Dierheimer <Linus@Dierheimer.de>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Neofetch clone written in C")
-set(CPACK_PACKAGE_DESCRIPTION "
-    fastfetch is a neofetch-like tool for fetching system information and displaying them in a pretty way.
-    It is written in c to achieve much better performance.
+set(CPACK_PACKAGE_DESCRIPTION "\
+fastfetch is a neofetch-like tool for fetching system information and displaying them in a pretty way. \
+It is written in c to achieve much better performance.\
 ")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/LinusDierheimer")
 
 set(CPACK_DEBIAN_PACKAGE_SECTION, "utils")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6")
-set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "
-    libpci3
-    libvulkan1
-    libwayland-client0
-    libxcb-randr0
-    xcb
-    libxrandr2
-    libx11-6
-    libdconf1
-    libglib2.0-0
-    libdbus-1-3
-    libxfconf-0-3
-    libmagickcore-6.q16hdri-6
-    libmagickcore-6.q16-6
+set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "\
+libpci3, \
+libvulkan1, \
+libwayland-client0, \
+libxcb-randr0, \
+xcb, \
+libxrandr2, \
+libx11-6, \
+libdconf1, \
+libglib2.0-0, \
+libdbus-1-3, \
+libxfconf-0-3, \
+libmagickcore-6.q16hdri-6, \
+zlib1g \
 ")
 
 set(CPACK_RPM_PACKAGE_LICENSE "MIT")

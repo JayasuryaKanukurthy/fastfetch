@@ -29,6 +29,7 @@ The following libraries are used if present at runtime:
 *  [`libGIO`](https://developer.gnome.org/gio/unstable/): Needed for values that are only stored GSettings.
 *  [`libDConf`](https://developer.gnome.org/dconf/unstable/): Needed for values that are only stored in DConf + Fallback for GSettings.
 *  [`libmagickcore` (ImageMagick)](https://www.imagemagick.org/): Images in terminal using sixel or kitty graphics protocol.
+*  [`libchafa`](https://github.com/hpjansson/chafa): Image output as ascii art.
 *  [`libZ`](https://www.zlib.net/): Faster image output when using kitty graphics protocol.
 *  [`libDBus`](https://www.freedesktop.org/wiki/Software/dbus): Needed for detecting current media player and song.
 *  [`libXFConf`](https://gitlab.xfce.org/xfce/xfconf): Needed for XFWM theme and XFCE Terminal font.
@@ -44,16 +45,17 @@ Title, Separator, OS, Host, Kernel, Uptime, Processes, Packages, Shell, Resoluti
 
 ##### Logos
 ```
-Android, Arch, Arco, Artix, CachyOS, CentOS, Debian, Endeavour, Fedora, Garuda, Gentoo, KDE Neon, Linux, Manjaro, Mint, OpenSUSE, OpenSUSE Tumbleweed, OpenSUSE LEAP, Pop!_OS, RebornOS, Ubuntu, Void, Zorin
+Android, Arch, Arco, Artix, CachyOS, CentOS, Debian, Deepin, Endeavour, Fedora, Garuda, Gentoo, KDE Neon, Kubuntu, Linux, Manjaro, Mint, NixOS, OpenSUSE, OpenSUSE Tumbleweed, OpenSUSE LEAP, Pop!_OS, RebornOS, RedstarOS, Ubuntu, Void, Zorin
 ```
 * Most of the logos have a small variant. Access it by appending _small to the logo name.
 * Some logos have an old variant. Access it by appending _old to the logo name.
 * Unknown/unsupported logos will be replaced with a generic linux logo when running fastfetch.
 * Get a list of all available logos with `fastfetch --print-logos`.
+* Printing images as logo is supported using Sixel or Kitty graphics protocol.
 
 ##### Package managers
 ```
-Pacman, dpkg, rpm, emerge, xbps, Flatpak, Snap
+Pacman, dpkg, rpm, emerge, xbps, nix, Flatpak, Snap
 ```
 
 ##### WM themes

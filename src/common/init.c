@@ -104,11 +104,12 @@ static void initState(FFstate* state)
 
 static void defaultConfig(FFinstance* instance)
 {
-    ffStrbufInit(&instance->config.logoName);
+    ffStrbufInit(&instance->config.logoSource);
     instance->config.logoType = FF_LOGO_TYPE_AUTO;
     for(uint8_t i = 0; i < (uint8_t) FASTFETCH_LOGO_MAX_COLORS; ++i)
         ffStrbufInit(&instance->config.logoColors[i]);
     instance->config.logoWidth = 65;
+    instance->config.logoHeight = 0; //preserve aspect ratio
     instance->config.logoPaddingLeft = 0;
     instance->config.logoPaddingRight = 4;
     instance->config.logoPrintRemaining = true;
@@ -201,6 +202,7 @@ static void defaultConfig(FFinstance* instance)
     ffStrbufInitA(&instance->config.librpm, 0);
     ffStrbufInitA(&instance->config.libImageMagick, 0);
     ffStrbufInitA(&instance->config.libZ, 0);
+    ffStrbufInitA(&instance->config.libChafa, 0);
 
     ffStrbufInitA(&instance->config.diskFolders, 0);
 
@@ -316,6 +318,9 @@ void ffListFeatures()
         #endif
         #ifdef FF_HAVE_IMAGEMAGICK6
             "imagemagick6\n"
+        #endif
+        #ifdef FF_HAVE_CHAFA
+            "chafa\n"
         #endif
         #ifdef FF_HAVE_ZLIB
             "zlib\n"

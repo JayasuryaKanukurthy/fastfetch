@@ -439,6 +439,36 @@ static const FFlogo* getLogoDebianSmall()
     FF_LOGO_RETURN
 }
 
+static const FFlogo* getLogoDeepin()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("deepin", "deepin-linux")
+    FF_LOGO_LINES(
+        "$1             ............\n"
+        "         .';;;;;.       .,;,.\n"
+        "      .,;;;;;;;.       ';;;;;;;.\n"
+        "    .;::::::::'     .,::;;,''''',.\n"
+        "   ,'.::::::::    .;;'.          ';\n"
+        "  ;'  'cccccc,   ,' :: '..        .:\n"
+        " ,,    :ccccc.  ;: .c, '' :.       ,;\n"
+        ".l.     cllll' ., .lc  :; .l'       l.\n"
+        ".c       :lllc  ;cl:  .l' .ll.      :'\n"
+        ".l        'looc. .   ,o:  'oo'      c,\n"
+        ".o.         .:ool::coc'  .ooo'      o.\n"
+        " ::            .....   .;dddo      ;c\n"
+        "  l:...            .';lddddo.     ,o\n"
+        "   lxxxxxdoolllodxxxxxxxxxc      :l\n"
+        "    ,dxxxxxxxxxxxxxxxxxxl.     'o,\n"
+        "      ,dkkkkkkkkkkkkko;.    .;o;\n"
+        "        .;okkkkkdl;.    .,cl:.\n"
+        "            .,:cccccccc:,."
+    )
+    FF_LOGO_COLORS(
+        "32" //green
+    )
+    FF_LOGO_RETURN
+}
+
 static const FFlogo* getLogoEndeavour()
 {
     FF_LOGO_INIT
@@ -663,6 +693,39 @@ static const FFlogo* getLogoKDENeon()
     FF_LOGO_RETURN
 }
 
+static const FFlogo* getLogoKubuntu()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("kubuntu", "kubuntu-linux", "kde-ubuntu", "ubuntu-kde", "ubuntu-plasma")
+    FF_LOGO_LINES(
+        "$1           `.:/ossyyyysso/:.\n"
+        "        .:oyyyyyyyyyyyyyyyyyyo:`\n"
+        "      -oyyyyyyyo$2dMMy$1yyyyyyysyyyyo-\n"
+        "    -syyyyyyyyyy$2dMMy$1oyyyy$2dmMMy$1yyyys-\n"
+        "   oyyys$2dMy$1syyyy$2dMMMMMMMMMMMMMy$1yyyyyyo\n"
+        " `oyyyy$2dMMMMy$1syysoooooo$2dMMMMy$1yyyyyyyyo`\n"
+        " oyyyyyy$2dMMMMy$1yyyyyyyyyyys$2dMMy$1sssssyyyo\n"
+        "-yyyyyyyy$2dMy$1syyyyyyyyyyyyyys$2dMMMMMy$1syyy-\n"
+        "oyyyysoo$2dMy$1yyyyyyyyyyyyyyyyyy$2dMMMMy$1syyyo\n"
+        "yyys$2dMMMMMy$1yyyyyyyyyyyyyyyyyysosyyyyyyyy\n"
+        "yyys$2dMMMMMy$1yyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n"
+        "oyyyyysos$2dy$1yyyyyyyyyyyyyyyyyy$2dMMMMy$1syyyo\n"
+        "-yyyyyyyy$2dMy$1syyyyyyyyyyyyyys$2dMMMMMy$1syyy-\n"
+        " oyyyyyy$2dMMMy$1syyyyyyyyyyys$2dMMy$1oyyyoyyyo\n"
+        " `oyyyy$2dMMMy$1syyyoooooo$2dMMMMy$1oyyyyyyyyo\n"
+        "   oyyysyyoyyyys$2dMMMMMMMMMMMy$1yyyyyyyo\n"
+        "    -syyyyyyyyy$2dMMMy$1syyy$2dMMMy$1syyyys-\n"
+        "      -oyyyyyyy$2dMMy$1yyyyyysosyyyyo-\n"
+        "        ./oyyyyyyyyyyyyyyyyyyo/.\n"
+        "           `.:/oosyyyysso/:.`"
+    )
+    FF_LOGO_COLORS(
+        "34", //blue
+        "37" //white
+    )
+    FF_LOGO_RETURN
+}
+
 static const FFlogo* getLogoLinux()
 {
     FF_LOGO_INIT
@@ -811,6 +874,90 @@ static const FFlogo* getLogoMintOld()
     FF_LOGO_COLORS(
         "32", //green
         "37" //white
+    )
+    FF_LOGO_RETURN
+}
+
+static const FFlogo* getLogoNixOS()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("nixos", "nix", "nixos-linux", "nix-linux", "nix-os", "nix_os", "nix_os_linux")
+    FF_LOGO_LINES(
+        "$1          ▗▄▄▄       $2▗▄▄▄▄    ▄▄▄▖\n"
+        "$1          ▜███▙       $2▜███▙  ▟███▛\n"
+        "$1           ▜███▙       $2▜███▙▟███▛\n"
+        "$1            ▜███▙       $2▜██████▛\n"
+        "$1     ▟█████████████████▙ $2▜████▛     $1▟▙\n"
+        "$1    ▟███████████████████▙ $2▜███▙    $1▟██▙\n"
+        "$2           ▄▄▄▄▖           ▜███▙  $1▟███▛\n"
+        "$2          ▟███▛             ▜██▛ $1▟███▛\n"
+        "$2         ▟███▛               ▜▛ $1▟███▛\n"
+        "$2▟███████████▛                  $1▟██████████▙\n"
+        "$2▜██████████▛                  $1▟███████████▛\n"
+        "$2      ▟███▛ $1▟▙               ▟███▛\n"
+        "$2     ▟███▛ $1▟██▙             ▟███▛\n"
+        "$2    ▟███▛  $1▜███▙           ▝▀▀▀▀\n"
+        "$2    ▜██▛    $1▜███▙ $2▜██████████████████▛\n"
+        "$2     ▜▛     $1▟████▙ $2▜████████████████▛\n"
+        "$1           ▟██████▙       $2▜███▙\n"
+        "$1          ▟███▛▜███▙       $2▜███▙\n"
+        "$1         ▟███▛  ▜███▙       $2▜███▙\n"
+        "$1         ▝▀▀▀    ▀▀▀▀▘       $2▀▀▀▘"
+    )
+    FF_LOGO_COLORS(
+        "34", //blue
+        "36" //cyan
+    )
+    FF_LOGO_RETURN
+}
+
+static const FFlogo* getLogoNixOsOld()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("nixos_old", "nix-old", "nixos-old", "nix_old", "nix-os-old", "nix_os_old")
+    FF_LOGO_LINES(
+        "$1          ::::.    $2':::::     ::::'\n"
+        "$1          ':::::    $2':::::.  ::::'\n"
+        "$1            :::::     $2'::::.:::::\n"
+        "$1      .......:::::..... $2::::::::\n"
+        "$1     ::::::::::::::::::. $2::::::    $1::::.\n"
+        "    ::::::::::::::::::::: $2:::::.  $1.::::'\n"
+        "$2           .....           ::::' $1:::::'\n"
+        "$2          :::::            '::' $1:::::'\n"
+        "$2 ........:::::               ' $1:::::::::::.\n"
+        "$2:::::::::::::                 $1:::::::::::::\n"
+        "$2 ::::::::::: $1..              $1:::::\n"
+        "$2     .::::: $1.:::            $1:::::\n"
+        "$2    .:::::  $1:::::          $1'''''    $2.....\n"
+        "    :::::   $1':::::.  $2......:::::::::::::'\n"
+        "     :::     $1::::::. $2':::::::::::::::::'\n"
+        "$1            .:::::::: $2'::::::::::\n"
+        "$1           .::::''::::.     $2'::::.\n"
+        "$1          .::::'   ::::.     $2'::::.\n"
+        "$1         .::::      ::::      $2'::::."
+    )
+    FF_LOGO_COLORS(
+        "34", //blue
+        "36" //cyan
+    )
+    FF_LOGO_RETURN
+}
+
+static const FFlogo* getLogoNixOsSmall()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("nixos_small", "nix-small", "nixos-small", "nix_small", "nix-os-small", "nix_os_small")
+    FF_LOGO_LINES(
+        "$1  \\\\  \\\\ //\n"
+        " ==\\\\__\\\\/ //\n"
+        "   //   \\\\//\n"
+        "==//     //==\n"
+        " //\\\\___//\n"
+        "// /\\\\  \\\\==\n"
+        "  // \\\\  \\\\"
+    )
+    FF_LOGO_COLORS(
+        "34" //blue
     )
     FF_LOGO_RETURN
 }
@@ -1029,6 +1176,66 @@ static const FFlogo* getLogoRebornSmall()
     FF_LOGO_RETURN
 }
 
+static const FFlogo* getLogoRedHatEnterpriseLinux()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("rhel", "redhat", "redhat-linux")
+    FF_LOGO_LINES(
+        "           .MMM..:MMMMMMM\n"
+        "          MMMMMMMMMMMMMMMMMM\n"
+        "          MMMMMMMMMMMMMMMMMMMM.\n"
+        "         MMMMMMMMMMMMMMMMMMMMMM\n"
+        "        ,MMMMMMMMMMMMMMMMMMMMMM:\n"
+        "        MMMMMMMMMMMMMMMMMMMMMMMM\n"
+        "  .MMMM'  MMMMMMMMMMMMMMMMMMMMMM\n"
+        " MMMMMM    `MMMMMMMMMMMMMMMMMMMM.\n"
+        "MMMMMMMM      MMMMMMMMMMMMMMMMMM .\n"
+        "MMMMMMMMM.       `MMMMMMMMMMMMM' MM.\n"
+        "MMMMMMMMMMM.                     MMMM\n"
+        "`MMMMMMMMMMMMM.                 ,MMMMM.\n"
+        " `MMMMMMMMMMMMMMMMM.          ,MMMMMMMM.\n"
+        "    MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+        "      MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:\n"
+        "         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n"
+        "            `MMMMMMMMMMMMMMMMMMMMMMMM:\n"
+        "                ``MMMMMMMMMMMMMMMMM'"
+    )
+    FF_LOGO_COLORS(
+        "31" //red
+    )
+    FF_LOGO_RETURN
+}
+
+static const FFlogo* getLogoRedstarOS()
+{
+    FF_LOGO_INIT
+    FF_LOGO_NAMES("redstar", "redstar-os", "redstaros", "redstaros-linux", "redstar-os-linux")
+    FF_LOGO_LINES(
+        "$1                    ..\n"
+        "                  .oK0l\n"
+        "                 :0KKKKd.\n"
+        "               .xKO0KKKKd\n"
+        "              ,Od' .d0000l\n"
+        "             .c;.   .'''...           ..'.\n"
+        ".,:cloddxxxkkkkOOOOkkkkkkkkxxxxxxxxxkkkx:\n"
+        ";kOOOOOOOkxOkc'...',;;;;,,,'',;;:cllc:,.\n"
+        " .okkkkd,.lko  .......',;:cllc:;,,'''''.\n"
+        "   .cdo. :xd' cd:.  ..';'',,,'',,;;;,'.\n"
+        "      . .ddl.;doooc'..;oc;'..';::;,'.\n"
+        "        coo;.oooolllllllcccc:'.  .\n"
+        "       .ool''lllllccccccc:::::;.\n"
+        "       ;lll. .':cccc:::::::;;;;'\n"
+        "       :lcc:'',..';::::;;;;;;;,,.\n"
+        "       :cccc::::;...';;;;;,,,,,,.\n"
+        "       ,::::::;;;,'.  ..',,,,'''.\n"
+        "        ........          ......"
+    )
+    FF_LOGO_COLORS(
+        "31" //red
+    )
+    FF_LOGO_RETURN
+}
+
 static const FFlogo* getLogoUbuntu()
 {
     FF_LOGO_INIT
@@ -1179,6 +1386,7 @@ static GetLogoMethod* getLogos()
         getLogoCentOSSmall,
         getLogoDebian,
         getLogoDebianSmall,
+        getLogoDeepin,
         getLogoEndeavour,
         getLogoFedora,
         getLogoFedoraSmall,
@@ -1187,12 +1395,16 @@ static GetLogoMethod* getLogos()
         getLogoGentoo,
         getLogoGentooSmall,
         getLogoKDENeon,
+        getLogoKubuntu,
         getLogoLinux,
         getLogoManjaro,
         getLogoManjaroSmall,
         getLogoMint,
         getLogoMintSmall,
         getLogoMintOld,
+        getLogoNixOS,
+        getLogoNixOsOld,
+        getLogoNixOsSmall,
         getLogoOpenSuse,
         getLogoOpenSuseSmall,
         getLogoOpenSuseLeap,
@@ -1203,6 +1415,8 @@ static GetLogoMethod* getLogos()
 	getLogoRedHatEnterpriseLinux,
         getLogoReborn,
         getLogoRebornSmall,
+        getLogoRedHatEnterpriseLinux,
+        getLogoRedstarOS,
         getLogoUbuntu,
         getLogoUbuntuSmall,
         getLogoVoid,
@@ -1295,8 +1509,8 @@ void ffLogoSetMainColor(FFinstance* instance)
 {
     const FFlogo* logo = NULL;
 
-    if(instance->config.logoName.length > 0)
-       logo = getBuiltinLogo(instance->config.logoName.chars);
+    if(instance->config.logoSource.length > 0)
+       logo = getBuiltinLogo(instance->config.logoSource.chars);
 
     if(logo == NULL)
         logo = detectBuiltinLogo(instance);
@@ -1327,18 +1541,9 @@ void ffLogoPrintUnknown(FFinstance* instance)
     printLogoStruct(instance, getLogoUnknown(), false);
 }
 
-void ffLogoPrintBuiltin(FFinstance* instance)
-{
-    const FFlogo* logo = getBuiltinLogo(instance->config.logoName.chars);
-    if(logo == NULL)
-        ffLogoPrintUnknown(instance);
-    else
-        printLogoStruct(instance, logo, true);
-}
-
 bool ffLogoPrintBuiltinIfExists(FFinstance* instance)
 {
-    const FFlogo* logo = getBuiltinLogo(instance->config.logoName.chars);
+    const FFlogo* logo = getBuiltinLogo(instance->config.logoSource.chars);
     if(logo == NULL)
         return false;
 

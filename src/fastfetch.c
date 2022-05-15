@@ -714,7 +714,7 @@ static void parseOption(FFinstance* instance, FFdata* data, const char* key, con
     ////////////////
 
     else if(strcasecmp(key, "-l") == 0 || strcasecmp(key, "--logo") == 0)
-        optionParseString(key, value, &instance->config.logoName);
+        optionParseString(key, value, &instance->config.logoSource);
     else if(strcasecmp(key, "--logo-type") == 0)
     {
         if(value == NULL)
@@ -735,6 +735,8 @@ static void parseOption(FFinstance* instance, FFdata* data, const char* key, con
             instance->config.logoType = FF_LOGO_TYPE_SIXEL;
         else if(strcasecmp(value, "kitty") == 0)
             instance->config.logoType = FF_LOGO_TYPE_KITTY;
+        else if(strcasecmp(value, "chafa") == 0)
+            instance->config.logoType = FF_LOGO_TYPE_CHAFA;
         else
         {
             fprintf(stderr, "Error: unknown logo type: %s\n", value);
@@ -757,6 +759,8 @@ static void parseOption(FFinstance* instance, FFdata* data, const char* key, con
     }
     else if(strcasecmp(key, "--logo-width") == 0)
         instance->config.logoWidth = optionParseUInt32(key, value);
+    else if(strcasecmp(key, "--logo-height") == 0)
+        instance->config.logoHeight = optionParseUInt32(key, value);
     else if(strcasecmp(key, "--logo-padding") == 0)
     {
         uint32_t padding = optionParseUInt32(key, value);
@@ -771,13 +775,28 @@ static void parseOption(FFinstance* instance, FFdata* data, const char* key, con
         instance->config.logoPrintRemaining = optionParseBoolean(value);
     else if(strcasecmp(key, "--sixel") == 0)
     {
-        optionParseString(key, value, &instance->config.logoName);
+        optionParseString(key, value, &instance->config.logoSource);
         instance->config.logoType = FF_LOGO_TYPE_SIXEL;
     }
     else if(strcasecmp(key, "--kitty") == 0)
     {
-        optionParseString(key, value, &instance->config.logoName);
+        optionParseString(key, value, &instance->config.logoSource);
         instance->config.logoType = FF_LOGO_TYPE_KITTY;
+    }
+    else if(strcasecmp(key, "--file") == 0)
+    {
+        optionCheckString(key, value, &instance->config.logoSource);
+        instance->config.logoType = FF_LOGO_TYPE_FILE;
+    }
+    else if(strcasecmp(key, "--raw") == 0)
+    {
+        optionParseString(key, value, &instance->config.logoSource);
+        instance->config.logoType = FF_LOGO_TYPE_RAW;
+    }
+    else if(strcasecmp(key, "--chafa") == 0)
+    {
+        optionParseString(key, value, &instance->config.logoSource);
+        instance->config.logoType = FF_LOGO_TYPE_CHAFA;
     }
 
     ///////////////////
@@ -978,6 +997,8 @@ static void parseOption(FFinstance* instance, FFdata* data, const char* key, con
         optionParseString(key, value, &instance->config.libImageMagick);
     else if(strcasecmp(key, "--lib-z") == 0)
         optionParseString(key, value, &instance->config.libZ);
+    else if(strcasecmp(key, "--lib-chafa") == 0)
+        optionParseString(key, value, &instance->config.libChafa);
 
     //////////////////
     //Module options//

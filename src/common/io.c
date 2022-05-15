@@ -1,23 +1,52 @@
 #include "fastfetch.h"
 
-#include <malloc.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdarg.h>
+#include <termios.h>
+#include <poll.h>
 
 bool ffWriteFDContent(int fd, const FFstrbuf* content)
 {
     return write(fd, content->chars, content->length) != -1;
 }
 
-void ffWriteFileContent(const char* fileName, const FFstrbuf* content)
+static void createSubfolders(const char* fileName)
 {
-    int fd = open(fileName, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if(fd == -1)
-        return;
+    FFstrbuf path;
+    ffStrbufInit(&path);
 
-    ffWriteFDContent(fd, content);
+    while(*fileName != '\0')
+    {
+        ffStrbufAppendC(&path, *fileName);
+        if(*fileName == '/')
+            mkdir(path.chars, S_IRWXU | S_IRGRP | S_IROTH);
+        ++fileName;
+    }
+
+    ffStrbufDestroy(&path);
+}
+
+bool ffWriteFileContent(const char* fileName, const FFstrbuf* content)
+{
+    int openFlagsModes = O_WRONLY | O_CREAT | O_TRUNC;
+    int openFlagsRights = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+
+    int fd = open(fileName, openFlagsModes, openFlagsRights);
+    if(fd == -1)
+    {
+        createSubfolders(fileName);
+        fd = open(fileName, openFlagsModes, openFlagsRights);
+        if(fd == -1)
+            return false;
+    }
+
+    bool ret = ffWriteFDContent(fd, content);
 
     close(fd);
+
+    return ret;
 }
 
 void ffAppendFDContent(int fd, FFstrbuf* buffer)
@@ -97,4 +126,46 @@ bool ffFileExists(const char* fileName, mode_t mode)
 {
     struct stat fileStat;
     return stat(fileName, &fileStat) == 0 && ((fileStat.st_mode & S_IFMT) == mode);
+}
+
+void ffGetTerminalResponse(const char* request, const char* format, ...)
+{
+    struct termios oldTerm, newTerm;
+    if(tcgetattr(STDIN_FILENO, &oldTerm) == -1)
+        return;
+
+    newTerm = oldTerm;
+    newTerm.c_lflag &= (tcflag_t) ~(ICANON | ECHO);
+    if(tcsetattr(STDIN_FILENO, TCSANOW, &newTerm) == -1)
+        return;
+
+    fputs(request, stdout);
+    fflush(stdout);
+
+    struct pollfd pfd;
+    pfd.fd = STDIN_FILENO;
+    pfd.events = POLLIN;
+    pfd.revents = 0;
+
+    //Give the terminal 35ms to respond
+    if(poll(&pfd, 1, 35) <= 0)
+    {
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldTerm);
+        return;
+    }
+
+    char buffer[512];
+    ssize_t readed = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldTerm);
+
+    if(readed <= 0)
+        return;
+
+    buffer[readed] = '\0';
+
+    va_list args;
+    va_start(args, format);
+    vsscanf(buffer, format, args);
+    va_end(args);
 }

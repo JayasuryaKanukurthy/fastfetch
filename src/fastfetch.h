@@ -38,15 +38,17 @@ typedef enum FFLogoType
     FF_LOGO_TYPE_FILE,    //Raw text file, printed as is.
     FF_LOGO_TYPE_RAW,     //Raw text file, printed with color codes replacement.
     FF_LOGO_TYPE_SIXEL,   //Image file, printed as sixel codes.
-    FF_LOGO_TYPE_KITTY    //Image file, printed as kitty graphics protocol
+    FF_LOGO_TYPE_KITTY,   //Image file, printed as kitty graphics protocol
+    FF_LOGO_TYPE_CHAFA    //Image file, printed as ascii art using libchafa
 } FFLogoType;
 
 typedef struct FFconfig
 {
-    FFstrbuf logoName;
+    FFstrbuf logoSource;
     FFLogoType logoType;
     FFstrbuf logoColors[FASTFETCH_LOGO_MAX_COLORS];
     uint32_t logoWidth;
+    uint32_t logoHeight;
     uint32_t logoPaddingLeft;
     uint32_t logoPaddingRight;
     bool logoPrintRemaining;
@@ -138,6 +140,7 @@ typedef struct FFconfig
     FFstrbuf librpm;
     FFstrbuf libImageMagick;
     FFstrbuf libZ;
+    FFstrbuf libChafa;
 
     FFstrbuf diskFolders;
 
@@ -400,10 +403,12 @@ void ffAppendFDContent(int fd, FFstrbuf* buffer);
 bool ffAppendFileContent(const char* fileName, FFstrbuf* buffer); //returns true if open() succeeds. This is used to differentiate between <file not found> and <empty file>
 bool ffGetFileContent(const char* fileName, FFstrbuf* buffer);
 bool ffWriteFDContent(int fd, const FFstrbuf* content);
-void ffWriteFileContent(const char* fileName, const FFstrbuf* buffer);
+bool ffWriteFileContent(const char* fileName, const FFstrbuf* buffer);
 
 bool ffFileExists(const char* fileName, mode_t mode);
 void ffSuppressIO(bool suppress); // Not thread safe!
+
+void ffGetTerminalResponse(const char* request, const char* format, ...);
 
 //common/printing.c
 void ffPrintError(FFinstance* instance, const char* moduleName, uint8_t moduleIndex, const FFstrbuf* customKeyFormat, const FFstrbuf* formatString, uint32_t numFormatArgs, const char* message, ...);

@@ -150,7 +150,7 @@ static void logoPrintFile(FFinstance* instance, bool doColorReplacement)
     FFstrbuf content;
     ffStrbufInitA(&content, 2047);
 
-    if(ffAppendFileContent(instance->config.logoName.chars, &content))
+    if(ffAppendFileContent(instance->config.logoSource.chars, &content))
         ffLogoPrint(instance, content.chars, doColorReplacement);
     else
         ffLogoPrintUnknown(instance);
@@ -158,16 +158,43 @@ static void logoPrintFile(FFinstance* instance, bool doColorReplacement)
 
 static void logoPrintDetected(FFinstance* instance)
 {
-    if(instance->config.logoName.length > 0)
+    //If no logo source is given, detect the logo from OS and print the right builtin one
+    if(instance->config.logoSource.length == 0)
     {
-        if(
-            !ffLogoPrintBuiltinIfExists(instance) &&
-            !ffLogoPrintImageIfExists(instance, FF_LOGO_TYPE_KITTY)
-        ) logoPrintFile(instance, true);
+        ffLogoPrintBuiltinDetected(instance);
         return;
     }
 
-    ffLogoPrintBuiltinDetected(instance);
+    //If a logo source is given, first look if it is the name of a builtin logo
+    if(ffLogoPrintBuiltinIfExists(instance))
+        return;
+
+    const FFTerminalShellResult* terminalShell = ffDetectTerminalShell(instance);
+
+    FFLogoImageResult imageResult = FF_LOGO_IMAGE_RESULT_INIT_ERROR;
+
+    //Terminals that are known to support kitty graphics protocol
+    //Try to load the logo as image.
+    if(
+        ffStrbufIgnCaseCompS(&terminalShell->terminalProcessName, "kitty") == 0 ||
+        ffStrbufIgnCaseCompS(&terminalShell->terminalProcessName, "konsole") == 0 ||
+        ffStrbufIgnCaseCompS(&terminalShell->terminalProcessName, "wezterm") == 0 ||
+        ffStrbufIgnCaseCompS(&terminalShell->terminalProcessName, "wayst") == 0
+    ) {
+        imageResult = ffLogoPrintImageIfExists(instance, FF_LOGO_TYPE_KITTY);
+        if(imageResult == FF_LOGO_IMAGE_RESULT_SUCCESS)
+            return;
+    }
+
+    //If the logo can be loaded as an image, convert it to ascii art.
+    //This happens in all terminals, that don't support kitty graphics protocol
+    if(
+        imageResult != FF_LOGO_IMAGE_RESULT_RUN_ERROR &&
+        ffLogoPrintImageIfExists(instance, FF_LOGO_TYPE_CHAFA) == FF_LOGO_IMAGE_RESULT_SUCCESS
+    ) return;
+
+    //Print the content of the file as logo
+    logoPrintFile(instance, true);
 }
 
 void ffPrintLogo(FFinstance* instance)
@@ -175,22 +202,23 @@ void ffPrintLogo(FFinstance* instance)
     if(instance->config.mainColor.length == 0)
         ffLogoSetMainColor(instance);
 
-    if(( //Logo type needs set logo name, but nothing was given. Print question mark
-        instance->config.logoType == FF_LOGO_TYPE_BUILTIN ||
-        instance->config.logoType == FF_LOGO_TYPE_FILE ||
-        instance->config.logoType == FF_LOGO_TYPE_RAW ||
-        instance->config.logoType == FF_LOGO_TYPE_SIXEL
-    ) && instance->config.logoName.length == 0)
+    if( //Logo type needs set logo name, but nothing was given. Print question mark
+        instance->config.logoType != FF_LOGO_TYPE_AUTO &&
+        instance->config.logoSource.length == 0
+    )
         ffLogoPrintUnknown(instance);
     else if(instance->config.logoType == FF_LOGO_TYPE_BUILTIN)
-        ffLogoPrintBuiltin(instance);
+    {
+        if(!ffLogoPrintBuiltinIfExists(instance))
+            ffLogoPrintUnknown(instance);
+    }
     else if(instance->config.logoType == FF_LOGO_TYPE_FILE)
         logoPrintFile(instance, true);
     else if(instance->config.logoType == FF_LOGO_TYPE_RAW)
         logoPrintFile(instance, false);
-    else if(instance->config.logoType == FF_LOGO_TYPE_SIXEL || instance->config.logoType == FF_LOGO_TYPE_KITTY)
+    else if(instance->config.logoType == FF_LOGO_TYPE_SIXEL || instance->config.logoType == FF_LOGO_TYPE_KITTY || instance->config.logoType == FF_LOGO_TYPE_CHAFA)
     {
-        if(!ffLogoPrintImageIfExists(instance, instance->config.logoType))
+        if(ffLogoPrintImageIfExists(instance, instance->config.logoType) != FF_LOGO_IMAGE_RESULT_SUCCESS)
             ffLogoPrintBuiltinDetected(instance);
     }
     else
